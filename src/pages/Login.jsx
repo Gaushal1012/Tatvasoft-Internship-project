@@ -94,7 +94,9 @@ import { List, ListItem, ListItemText, ListItemIcon } from "@mui/material";
 import CircleIcon from "@mui/icons-material/Circle";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import authService from "../services/auth.service";
 
 const linkStyle = {
   textDecoration: "none",
@@ -102,21 +104,27 @@ const linkStyle = {
 
 const initialValues = {
   email: "",
-  pass: "",
+  password: "",
 };
 
 const loginSchema = Yup.object({
   email: Yup.string().email().required("Please enter your email"),
-  pass: Yup.string().min(6).required("Pleaase enter password with min 6 char"),
+  password: Yup.string()
+    .min(6)
+    .required("Pleaase enter password with min 6 char"),
 });
 const Login = () => {
+  const navigate = useNavigate();
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues: initialValues,
       validationSchema: loginSchema,
       onSubmit: (values) => {
-        console.log("form vals", values);
-        alert("sucessfull");
+        authService.login(values).then((res) => {
+          toast.success("Login successfully");
+          navigate("/book");
+        });
       },
     });
 
@@ -211,14 +219,16 @@ const Login = () => {
                     type="password"
                     size="small"
                     fullWidth
-                    name="pass"
-                    value={values.pass}
+                    name="password"
+                    value={values.password}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     helperText={
-                      errors.pass && touched.pass ? errors.pass : null
+                      errors.password && touched.password
+                        ? errors.password
+                        : null
                     }
-                    error={errors.pass && touched.pass}
+                    error={errors.password && touched.password}
                   />
                 </Grid>
                 <Grid item xs={12}>

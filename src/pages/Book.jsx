@@ -1,4 +1,5 @@
 import BookCard from "../components/global/Book/BookCard";
+import Stack from "@mui/material/Stack";
 import React from "react";
 
 const data = [
@@ -22,11 +23,21 @@ const data = [
 const Book = () => {
   return (
     <div>
-      {data.map((ele) => {
-        return (
-          <BookCard title={ele.title} price={ele.price} author={ele.author} />
-        );
-      })}
+      <Stack
+        direction={{ xs: "column", sm: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
+      >
+        {data.map((ele) => {
+          return (
+            <BookCard
+              title={ele.title}
+              price={ele.price}
+              author={ele.author}
+              img={ele.img}
+            />
+          );
+        })}
+      </Stack>
     </div>
   );
 };
