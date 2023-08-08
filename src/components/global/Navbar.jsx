@@ -1,56 +1,3 @@
-// import React from "react";
-// import Logo from "../../assets/logo.png";
-// import Button from "@mui/material/Button";
-// import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-// import SearchIcon from "@mui/icons-material/Search";
-// import { Link } from "react-router-dom";
-
-// const Navbar = () => {
-//   return (
-//     <>
-//       <div className="menubar">
-//         <div className="navbar">
-//           <Link to="/">
-//             <div className="logo">
-//               <img src={Logo} alt="logo" />
-//             </div>
-//           </Link>
-//           <div className="auth">
-//             <Link to="/login">
-//               <Button>Login</Button>
-//             </Link>
-//             <hr />
-//             <Link to="/register">
-//               <Button>Register</Button>
-//             </Link>
-//             <Button variant="outlined" style={{ borderColor: "rgb(65,65,65)" }}>
-//               {<ShoppingCartIcon />} 0
-//               <span style={{ color: "rgb(65,65,65)", marginLeft: "3px " }}>
-//                 Cart
-//               </span>
-//             </Button>
-//           </div>
-//         </div>
-//         <div className="searchbar">
-//           <input
-//             type="text"
-//             name="search"
-//             placeholder="What are you looking for..."
-//           />
-//           <Button variant="contained" style={{ backgroundColor: "#80BF32" }}>
-//             {<SearchIcon />}Search
-//           </Button>
-//           <Button variant="contained" style={{ backgroundColor: "#f14d54" }}>
-//             Cancle
-//           </Button>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Navbar;
-
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
@@ -63,6 +10,10 @@ import logo from "../../assets/images/site-logo.svg";
 
 import { Link } from "react-router-dom";
 
+import { RoutePaths } from "./../../utils/enum";
+import Shared from "../../utils/shared";
+import { useMemo } from "react";
+
 const linkStyle = {
   textDecoration: "none",
 };
@@ -71,6 +22,23 @@ const Navbar = () => {
   const Style = {
     display: "flex",
     gap: "20px",
+  };
+
+  // temporary user
+  const user = {
+    id: "xyz",
+    roleId: 1,
+    name: "ramesh",
+  };
+
+  const items = useMemo(() => {
+    return Shared.NavigationItems.filter(
+      (item) => !item.access.length || item.access.includes(user.roleId)
+    );
+  }, [user]);
+
+  const logOut = () => {
+    //authcontext se sign out karna hai
   };
 
   return (
@@ -89,25 +57,42 @@ const Navbar = () => {
             spacing={1}
             divider={<Divider orientation="vertical" flexItem />}
           >
-            <Link to="/login" style={linkStyle}>
-              <Button
-                variant="text"
-                color="error"
-                sx={{ textTransform: "capitalize" }}
-              >
-                Login
-              </Button>
-            </Link>
-            <Link to="/register" style={linkStyle}>
-              <Button
-                variant="text"
-                color="error"
-                sx={{ textTransform: "capitalize" }}
-              >
-                Register
-              </Button>
-            </Link>
-            <Link to="/book" style={linkStyle}>
+            {!user.id && (
+              <>
+                <Link to={RoutePaths.Login} style={linkStyle}>
+                  <Button
+                    variant="text"
+                    color="error"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link to={RoutePaths.Register} style={linkStyle}>
+                  <Button
+                    variant="text"
+                    color="error"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    Register
+                  </Button>
+                </Link>
+              </>
+            )}
+            {items.map((item, index) => {
+              return (
+                <Link to={item.route} style={linkStyle} key={index}>
+                  <Button
+                    variant="text"
+                    color="error"
+                    sx={{ textTransform: "capitalize" }}
+                  >
+                    {item.name}
+                  </Button>
+                </Link>
+              );
+            })}
+            {/* <Link to="/book" style={linkStyle}>
               <Button
                 variant="text"
                 color="error"
@@ -115,7 +100,7 @@ const Navbar = () => {
               >
                 Books
               </Button>
-            </Link>
+            </Link> */}
           </Stack>
           <Link to="/cart" style={linkStyle}>
             <Button
@@ -127,6 +112,18 @@ const Navbar = () => {
               Cart
             </Button>
           </Link>
+          {user.id && (
+            <Link to="/book" style={linkStyle}>
+              <Button
+                variant="text"
+                color="error"
+                sx={{ textTransform: "capitalize" }}
+                onClick={() => logOut}
+              >
+                Logout
+              </Button>
+            </Link>
+          )}
         </Box>
       </Box>
     </Container>

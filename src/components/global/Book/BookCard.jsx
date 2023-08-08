@@ -13,7 +13,7 @@ const BookCard = ({ title, price, author, img }) => {
     margin: "10px",
   };
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ height: "100%" }}>
       <CardMedia component="img" alt="green iguana" height="140" image={img} />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">

@@ -1,44 +1,45 @@
 import BookCard from "../components/global/Book/BookCard";
 import Stack from "@mui/material/Stack";
-import React from "react";
 
-const data = [
-  {
-    title: "Ramayan",
-    price: 1999,
-    author: "Sage Valmiki",
-  },
-  {
-    title: "Doglapan",
-    price: 299,
-    author: "Ashneer",
-  },
-  {
-    title: "Rich Dad poor Dad",
-    price: 200,
-    author: "Robert Kiyosaki",
-  },
-];
+import bookService from "../services/book.service";
+import { useEffect, useState } from "react";
+import { Container, Grid } from "@mui/material";
 
 const Book = () => {
+  const [books, setBooks] = useState([]);
+
+  const getAllBooks = async () => {
+    const res = await bookService.searchBook({});
+    setBooks(res);
+  };
+
+  useEffect(() => {
+    getAllBooks();
+  }, []);
+
   return (
-    <div>
-      <Stack
-        direction={{ xs: "column", sm: "row" }}
-        spacing={{ xs: 1, sm: 2, md: 4 }}
+    <Container maxWidth="lg" sx={{ paddingY: "1rem" }}>
+      <Grid
+        container
+        rowSpacing={1}
+        columnSpacing={{ xs: 1, sm: 2, md: 5 }}
+        alignItems="stretch"
       >
-        {data.map((ele) => {
+        {books.map((ele) => {
           return (
-            <BookCard
-              title={ele.title}
-              price={ele.price}
-              author={ele.author}
-              img={ele.img}
-            />
+            <Grid item md={3}>
+              <BookCard
+                key={ele.name}
+                title={ele.name}
+                price={ele.price}
+                author={ele.category}
+                img={ele.base64image}
+              />
+            </Grid>
           );
         })}
-      </Stack>
-    </div>
+      </Grid>
+    </Container>
   );
 };
 
