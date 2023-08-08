@@ -1,5 +1,5 @@
 import BookCard from "../components/global/Book/BookCard";
-import Stack from "@mui/material/Stack";
+// import Stack from "@mui/material/Stack";
 
 import bookService from "../services/book.service";
 import { useEffect, useState } from "react";
@@ -27,9 +27,8 @@ const Book = () => {
       >
         {books.map((ele) => {
           return (
-            <Grid item md={3}>
+            <Grid item md={3} key={ele.name}>
               <BookCard
-                key={ele.name}
                 title={ele.name}
                 price={ele.price}
                 author={ele.category}

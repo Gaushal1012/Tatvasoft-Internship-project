@@ -13,6 +13,7 @@ export const RoutePaths = {
   BookListing: "/",
   Cart: "/Cart",
   UpdateProfile: "/update-profile",
+  Other: "*",
 };
 
 export const Role = {

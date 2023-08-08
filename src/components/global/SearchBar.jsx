@@ -16,7 +16,7 @@ const SearchBar = () => {
   const [openSearchResult, setOpenSearchResult] = useState(false);
 
   const searchBook = async () => {
-    const res = await bookService.searchBook({});
+    const res = await bookService.searchBook(query);
     setbookList(res);
   };
 
