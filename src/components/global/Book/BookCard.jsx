@@ -4,32 +4,71 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Box, Chip, Stack } from "@mui/material";
 
-const BookCard = ({ title, price, author, img }) => {
-  const Style = {
-    display: "flex",
-    gap: "15px",
-    border: "2px solid pink",
-    margin: "10px",
-  };
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
+//=====================================================================================================
+//   Ye Card vala Component copy nahi karna hai khud ka vaparana hai
+//====================================================================================================
+
+const BookCard = ({ name, price, description, category, img }) => {
   return (
-    <Card sx={{ height: "100%" }}>
-      <CardMedia component="img" alt="green iguana" height="140" image={img} />
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {title}
-        </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        gap: "1rem",
+        height: "100%",
+        overflow: "hidden",
+        borderRadius: "1rem",
+        border: "1px solid #d4d4d4",
+      }}
+    >
+      <div
+        style={{
+          overflow: "hidden",
+          width: "40%",
+          backgroundColor: "#eeee",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <img
+          src={img}
+          alt="book image"
+          style={{ height: "12rem", objectFit: "cover" }}
+        />
+      </div>
+      <Stack
+        alignItems="flex-start"
+        useFlexGap
+        spacing={1}
+        sx={{ height: "100%", paddingY: "0.5rem", width: "50%" }}
+      >
+        <Typography variant="h5">{name}</Typography>
+        <Chip label={category} sx={{ backgroundColor: "#e0e8eb" }} />
+
         <Typography variant="body2" color="text.secondary">
-          {author}
+          {description}
         </Typography>
-      </CardContent>
-      <CardActions>
-        <Typography variant="h4">Rs. {price}</Typography>
-        <Button size="small" variant="contained" sx={{ marginLeft: "10px" }}>
-          Add to Cart
+        <Typography variant="h6">&#8377; {price}</Typography>
+        <Button
+          variant="contained"
+          startIcon={<ShoppingCartIcon />}
+          sx={{
+            marginTop: "auto",
+            backgroundColor: "#ea3c53",
+            "&:hover": {
+              backgroundColor: "#e60026",
+            },
+          }}
+        >
+          Add
         </Button>
-      </CardActions>
-    </Card>
+      </Stack>
+    </Box>
   );
 };
 
