@@ -40,7 +40,7 @@ const Login = () => {
         authService.login(values).then((res) => {
           authContext.setUser(res);
           toast.success("Login successfully");
-          navigate("/book");
+          navigate("/");
         });
       },
     });

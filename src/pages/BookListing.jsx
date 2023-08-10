@@ -1,5 +1,4 @@
 import BookCard from "../components/global/Book/BookCard";
-// import Stack from "@mui/material/Stack";
 
 import bookService from "../services/book.service";
 import categoryService from "../services/category.service";

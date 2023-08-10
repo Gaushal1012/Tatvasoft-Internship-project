@@ -103,7 +103,7 @@ const initialValues = {
   firstName: "",
   lastName: "",
   email: "",
-  roleId: 2,
+  roleId: 3,
   password: "",
   confirmPassword: "",
 };
