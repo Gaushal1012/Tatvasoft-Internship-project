@@ -70,7 +70,7 @@ const EditBook = () => {
   } = useFormik({
     initialValues: initialValueState,
     validationSchema: bookSchema,
-
+    enableReinitialize: true,
     onSubmit: (values) => {
       bookService
         .save(values)
