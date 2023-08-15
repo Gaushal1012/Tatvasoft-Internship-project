@@ -15,6 +15,7 @@ import Shared from "../../utils/shared";
 import { useMemo } from "react";
 
 import { useAuthContext } from "../../context/auth";
+import { Chip } from "@mui/material";
 
 const linkStyle = {
   textDecoration: "none",
@@ -48,8 +49,21 @@ const Navbar = () => {
           height: "92px",
         }}
       >
-        <img src={logo} alt="logo" style={{ width: "180px" }} />
+        <Link
+          to={RoutePaths.BookListing}
+          style={{ display: "flex", alignItems: "center" }}
+        >
+          <img src={logo} alt="logo" style={{ width: "180px" }} />
+        </Link>
+
         <Box sx={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          {!!authContext.user.id && (
+            <Chip
+              label={`Welcome, ${authContext.user.firstName} ${authContext.user.lastName}`}
+              sx={{ backgroundColor: "#ffdbd3", fontSize: "16px" }}
+            />
+          )}
+
           <Stack
             direction="row"
             spacing={1}

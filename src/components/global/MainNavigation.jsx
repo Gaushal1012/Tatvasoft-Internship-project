@@ -8,6 +8,9 @@ import BookListing from "../../pages/BookListing";
 import EditBook from "../../pages/EditBook";
 import User from "../../pages/User";
 import EditUser from "../../pages/EditUser";
+import Category from "../../pages/Category";
+import EditCategory from "../../pages/EditCategory";
+import Profile from "../../pages/Profile";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useAuthContext } from "../../context/auth";
 
@@ -32,11 +35,6 @@ const MainNavigation = () => {
       />
       <Route
         exact
-        path={RoutePaths.EditCategory}
-        element={authContext.user.id ? <Home /> : Redirect}
-      />
-      <Route
-        exact
         path={RoutePaths.EditBook}
         element={authContext.user.id ? <EditBook /> : Redirect}
       />
@@ -57,8 +55,28 @@ const MainNavigation = () => {
       />
       <Route
         exact
+        path={RoutePaths.Category}
+        element={authContext.user.id ? <Category /> : Redirect}
+      />
+      <Route
+        exact
+        path={RoutePaths.EditCategory}
+        element={authContext.user.id ? <EditCategory /> : Redirect}
+      />
+      <Route
+        exact
+        path={RoutePaths.AddCategory}
+        element={authContext.user.id ? <EditCategory /> : Redirect}
+      />
+      <Route
+        exact
         path={RoutePaths.Other}
-        element={authContext.user.id ? <Book /> : Redirect}
+        element={authContext.user.id ? <BookListing /> : Redirect}
+      />
+      <Route
+        exact
+        path={RoutePaths.UpdateProfile}
+        element={authContext.user.id ? <Profile /> : Redirect}
       />
     </Routes>
   );

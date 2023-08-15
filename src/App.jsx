@@ -1,10 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// import Home from "./pages/Home";
-// import Book from "./pages/Book";
-// import Login from "./pages/Login";
-// import Register from "./pages/Register";
-
 import AppWrapper from "./components/global/AppWrapper";
 import Navbar from "./components/global/Navbar";
 import SearchBar from "./components/global/SearchBar";
