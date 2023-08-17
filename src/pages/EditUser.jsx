@@ -11,7 +11,6 @@ import {
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import authService from "../services/auth.service";
 import userService from "../services/user.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../context/auth";

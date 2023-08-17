@@ -1,6 +1,3 @@
-// import BookCard from "../components/global/Book/BookCard";
-// import Stack from "@mui/material/Stack";
-
 import ConfirmationDialog from "../components/global/ConfirmationDialog";
 import bookService from "../services/book.service";
 import categoryService from "../services/category.service";
@@ -140,7 +137,7 @@ const Book = () => {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="center">{row.price}</TableCell>
+                <TableCell align="center">&#8377; {row.price}</TableCell>
                 <TableCell align="center">
                   {" "}
                   {categories.find((c) => c.id === row.categoryId)?.name}
@@ -203,7 +200,7 @@ const Book = () => {
         onClose={() => setOpen(false)}
         onConfirm={() => onConfirmDelete()}
         title="Delete book"
-        description="Are you sure to delete the book"
+        description="Pakka Delete karana hai ek bar soch lo"
       />
     </Container>
   );

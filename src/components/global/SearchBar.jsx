@@ -3,22 +3,21 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
-import {
-  Container,
-  List,
-  ListItem,
-  ListItemText,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { Link } from "react-router-dom";
+import { List, ListItem, Typography } from "@mui/material";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import bookService from "../../services/book.service";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
+import { useAuthContext } from "../../context/auth";
+import { useCartContext } from "../../context/cart";
+import Shared from "../../utils/shared";
+import { toast } from "react-toastify";
 
 const SearchBar = () => {
-  const open = false;
+  const authContext = useAuthContext();
+  const cartContext = useCartContext();
+
   const [query, setquery] = useState("");
   const [bookList, setbookList] = useState([]);
   const [openSearchResult, setOpenSearchResult] = useState(false);
@@ -32,6 +31,22 @@ const SearchBar = () => {
     document.body.classList.add("search-results-open");
     searchBook();
     setOpenSearchResult(true);
+  };
+
+  const addToCart = (book) => {
+    if (!authContext.user.id) {
+      navigate(RoutePaths.Login);
+      toast.error("Please login before adding books to cart");
+    } else {
+      Shared.addToCart(book, authContext.user.id).then((res) => {
+        if (res.error) {
+          toast.error(res.error);
+        } else {
+          toast.success("Item added in cart");
+          cartContext.updateCart();
+        }
+      });
+    }
   };
 
   return (
@@ -143,6 +158,7 @@ const SearchBar = () => {
                               backgroundColor: "#e60026",
                             },
                           }}
+                          onClick={() => addToCart(item)}
                         >
                           Add
                         </Button>
